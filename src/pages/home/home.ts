@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {MomentModule} from 'angular2-moment';
 
 import { NavController } from 'ionic-angular';
 
@@ -10,29 +9,56 @@ import { NavController } from 'ionic-angular';
 export class HomePage {
 
   timeBase: any = null;
-  timeDiff: any;
-  moment: any;
-  timeCounter: any;
+  interval: any = null;
   isCounting: boolean = false;
 
-  constructor(public navCtrl: NavController, moment: MomentModule) {
-    this.timeDiff = new Date();
-    this.moment = moment;
+  timeCounter: string;
+
+  hours: string = "00"
+  minutes: string = "00";
+  seconds:string = "00";
+  miniSeconds:string = "000";
+
+  constructor(public navCtrl: NavController) {
+    this.updateTimeCounter();
+  }
+
+  updateTimeCounter() {
+    this.timeCounter = this.hours + ":" + this.minutes + ":" + this.seconds + ":" + this.miniSeconds;
   }
 
   toggleTimer(){
-    if (!this.isCounting){
-      this.timeBase = this.moment().valueOf();
-      this.isCounting = true;
+    let self = this;
 
-      while(this.isCounting){
-        this.timeCounter = this.moment().valueOf() - this.timeBase;
-      }
+    if (!this.isCounting){
+      this.isCounting = true;
+      this.timeBase = new Date().getTime();
+      console.log('timeBase', this.timeBase);
+
+      this.interval = setInterval(function(){
+
+        let currentTime = new Date().getTime();
+        let diff = currentTime - self.timeBase;
+
+        self.hours = Math.floor(diff/3600000) + "";
+        self.minutes = Math.floor(diff/60000) + "";
+        self.seconds = Math.floor(diff/1000) + "";
+        self.miniSeconds = diff%1000 + "";
+
+        this.updateTimeCounter();
+      }, 100)
     }else{
+      clearInterval(this.interval);
+
       this.isCounting = false;
       this.timeBase = null;
-      this.timeCounter = 0;
-    }
 
+      self.hours = "00"
+      self.minutes = "00";
+      self.seconds = "00";
+      self.miniSeconds = "000";
+
+      this.updateTimeCounter()
+    }
   }
 }
