@@ -1,25 +1,29 @@
 import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
+import { Dialogs } from 'ionic-native';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-
   timeBase: any = null;
   interval: any = null;
   isCounting: boolean = false;
 
   timeCounter: string = "00:00:00:000";
 
-  hours: string = "00"
-  minutes: string = "00";
-  seconds:string = "00";
-  miniSeconds:string = "000";
+  hours: any = "00"
+  minutes: any = "00";
+  seconds: any = "00";
+  miniSeconds: any = "000";
 
   constructor(public navCtrl: NavController) {
+  }
+
+  showDialog(){
+    Dialogs.alert('1','2','3');
   }
 
   toggleTimer(){
@@ -34,19 +38,27 @@ export class HomePage {
         let currentTime = new Date().getTime();
         let diff = currentTime - self.timeBase;
 
-        self.hours = Math.floor(diff/3600000) + "";
-        self.minutes = Math.floor(diff/60000) + "";
-        self.seconds = Math.floor(diff/1000) + "";
-        self.miniSeconds = diff%1000 + "";
+        self.hours = Math.floor(diff/3600000);
+        self.minutes = Math.floor(diff%3600000/60000);
+        self.seconds = Math.floor(diff%60000/1000);
+        self.miniSeconds = diff%1000;
+
+        self.hours += "";
+        self.minutes += "";
+        self.seconds += "";
+        self.miniSeconds += "";
+
 
         updateTimeCounter();
-      }, 1000)
+      }, 1)
     }else{
       clearInterval(this.interval);
 
       self.isCounting = false;
       self.timeBase = null;
+    }
 
+    function resetTime(){
       self.hours = "00"
       self.minutes = "00";
       self.seconds = "00";
@@ -56,26 +68,29 @@ export class HomePage {
     }
 
     function updateTimeCounter() {
-      //console.log('hours', self.hours);
-      //console.log('minutes', self.minutes);
-      //console.log('seconds', self.seconds);
       prependZeros();
       self.timeCounter = self.hours + ":" + self.minutes + ":" + self.seconds + ":" + self.miniSeconds;
     }
 
     function prependZeros(){
-      self.hours = prependZero(self.hours);
-      self.minutes = prependZero(self.minutes);
-      self.seconds = prependZero(self.seconds);
-      self.miniSeconds = prependZero(self.miniSeconds);
+      self.hours = makeIt2Digits(self.hours);
+      self.minutes = makeIt2Digits(self.minutes);
+      self.seconds = makeIt2Digits(self.seconds);
+      self.miniSeconds = makeIt3Digits(self.miniSeconds);
     }
 
-    function prependZero(it){
-      //console.log('before', it);
+    function makeIt2Digits(it){
       if (it.length === 1){
-        it = "0" + self.hours;
+        it = "0" + it;
       }
-      //console.log('after', it);
+      return it;
+    }
+
+    function makeIt3Digits(it){
+      it = makeIt2Digits(it);
+      if (it.length === 2){
+        it = "0" + it;
+      }
       return it;
     }
   }
