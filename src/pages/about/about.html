@@ -1,11 +1,21 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      About
+      Categories
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <ul>
+    <li *ngFor="let c of categories;" class="categories-list">
+      <h2>{{c}}</h2>
+      <ul>
+        <li *ngFor="let key of records | keys">
+          {{key}}: {{records[key]}}
+        </li>
+      </ul>
+    </li>
+  </ul>
 
 </ion-content>

@@ -56,6 +56,15 @@ export class HomePage {
 
       self.isCounting = false;
       self.timeBase = null;
+
+      if (!window.localStorage['records']){
+        window.localStorage['records'] = JSON.stringify({});
+      }
+
+      var storedRecords = JSON.parse(window.localStorage['records']);
+      storedRecords[new Date().getTime()] = self.timeCounter;
+
+      window.localStorage['records'] = JSON.stringify(storedRecords);
     }
 
     function resetTime(){

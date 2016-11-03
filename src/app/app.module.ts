@@ -6,6 +6,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import {MomentModule} from 'angular2-moment';
+import { KeysPipe } from '../pages/pipes/keysPipe';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import {MomentModule} from 'angular2-moment';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    KeysPipe
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -26,6 +28,6 @@ import {MomentModule} from 'angular2-moment';
     HomePage,
     TabsPage
   ],
-  providers: [MomentModule]
+  providers: [MomentModule, AboutPage]
 })
 export class AppModule {}
