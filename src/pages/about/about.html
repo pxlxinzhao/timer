@@ -12,7 +12,8 @@
       <h2>{{c}}</h2>
       <ul>
         <li *ngFor="let key of records | keys">
-          {{key}}: {{records[key]}}
+          {{key | dateFromMilli}}: {{records[key]}}
+          <button (click)="deleteRecord(key)">Delete</button>
         </li>
       </ul>
     </li>

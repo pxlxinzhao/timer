@@ -5,8 +5,9 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
-import {MomentModule} from 'angular2-moment';
 import { KeysPipe } from '../pages/pipes/keysPipe';
+import { DatePipe } from '../pages/pipes/DatePipe';
+import { Helper } from '../pages/helper/helper';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { KeysPipe } from '../pages/pipes/keysPipe';
     ContactPage,
     HomePage,
     TabsPage,
-    KeysPipe
+    KeysPipe,
+    DatePipe
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -28,6 +30,6 @@ import { KeysPipe } from '../pages/pipes/keysPipe';
     HomePage,
     TabsPage
   ],
-  providers: [MomentModule, AboutPage]
+  providers: [Helper]
 })
 export class AppModule {}

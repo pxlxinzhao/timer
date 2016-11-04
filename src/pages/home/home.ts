@@ -67,14 +67,14 @@ export class HomePage {
       window.localStorage['records'] = JSON.stringify(storedRecords);
     }
 
-    function resetTime(){
-      self.hours = "00"
-      self.minutes = "00";
-      self.seconds = "00";
-      self.miniSeconds = "000";
-
-      updateTimeCounter();
-    }
+    //function resetTime(){
+    //  self.hours = "00"
+    //  self.minutes = "00";
+    //  self.seconds = "00";
+    //  self.miniSeconds = "000";
+    //
+    //  updateTimeCounter();
+    //}
 
     function updateTimeCounter() {
       prependZeros();
